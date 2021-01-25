@@ -1104,6 +1104,7 @@ Module
   try {
     // Pin Request
     if (message.guild && (message.guild.id == Module.config.ldsg) && (reaction.emoji.name == "📌") && message.pinnable) {
+      message.channel.messages.fetchPinned().then(m =>{if(m.array().length == 50) return message.channel.send("I was unable to pin the message since the channel pin limit has been reached.")})
       if (message.channel.permissionsFor(user).has("MANAGE_MESSAGES")) message.pin();
       else if (reaction.count == 1) {
         let embed = u.embed()
